@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #6E9887 !important;
+  }
+  
+  .navbar .nav-link {
+    position: relative;
+    color: #fff;
+  }
+  
+  .navbar .nav-link:hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+  }
+  
