@@ -1,22 +1,49 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { GlobalState } from '../../GlobalState';
 
 function Categories() {
+  const state = useContext(GlobalState)
+  const token = state.token
   const [categories, setCategories] = useState([]);
-  const [newCategory, setNewCategory] = useState('');
+  const [name, setName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
+  
+
+  useEffect(() => {
+
+    const getCats = async() => {
+        const res = await axios.get("/genre/show_all")
+
+        setCategories(res.data.data)
+
+    }
+
+    getCats()
+
+
+
+  }, [])
+
   const handleInputChange = (e) => {
-    setNewCategory(e.target.value);
+    setName(e.target.value);
   };
 
-  const handleAddCategory = (e) => {
+  const handleAddCategory = async(e) => {
     e.preventDefault();
-    if (newCategory.trim() !== '') {
-      setCategories((prevCategories) => [...prevCategories, newCategory]);
-      setNewCategory('');
-    }
+    const res = await axios.post('/genre/create', {name}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    alert(res.data.msg)
+
+    window.location.href = "/categories"
+    
   };
 
   const handleDeleteCategory = (category) => {
@@ -33,6 +60,7 @@ function Categories() {
     setCurrentPage(pageNumber);
   };
 
+  
   const categoryVariants = {
     hidden: {
       opacity: 0,
@@ -64,7 +92,7 @@ function Categories() {
               className="form-control"
              style={{marginRight: "2rem"}}
               placeholder="Enter category name"
-              value={newCategory}
+              value={name}
               onChange={handleInputChange}
             />
             <div className="input-group-append">
@@ -79,20 +107,21 @@ function Categories() {
         </form>
 
         <ul className="list-group">
-          {currentCategories.map((category, index) => (
+          {currentCategories?.map((category, index) => (
             <motion.li
-              key={index}
-              className="list-group-item d-flex justify-content-between align-items-center mb-2"
-              variants={categoryVariants}
+            key={index}
+            className="list-group-item d-flex justify-content-between align-items-center mb-2"
+            variants={categoryVariants}
+          >
+            {category.name}
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDeleteCategory(category)}
             >
-              {category}
-              <button
-                className="btn btn-danger"
-                onClick={() => handleDeleteCategory(category)}
-              >
-                Delete
-              </button>
-            </motion.li>
+              Delete
+            </button>
+          </motion.li>
+            
           ))}
         </ul>
 
@@ -115,9 +144,13 @@ function Categories() {
             )}
           </ul>
         </nav>
+
+        
       </div>
     </motion.div>
   );
 }
+
+
 
 export default Categories;

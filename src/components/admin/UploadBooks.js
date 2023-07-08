@@ -1,29 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { GlobalState } from '../../GlobalState';
+
 
 function UploadBooks() {
-  const [formData, setFormData] = useState({
-    title: '',
-    author: '',
-    genre: '',
-    publicationYear: '',
-    price: '',
-    description: '',
-    coverImage: '',
+ const state = useContext(GlobalState)
+ const token = state.token
+  const [values, setValues] = useState({
+    bookTitle: "",
+    bookGenre: "",
+    bookDescription: "",
+    bookAuthor: "",
+    bookReleaseDate: "",
+    bookPrice: ""
   });
+
+  const[bookImage, setBookImage] = useState("")
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+
+    const getCats = async() => {
+        const res = await axios.get("/genre/show_all")
+
+        setCategories(res.data.data)
+
+    }
+
+    getCats()
+
+
+
+  }, [])
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setValues((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setBookImage(file);
+  };
+
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    let formData = new FormData()
+    
+    formData.append('bookImage', bookImage)
+    formData.append('bookTitle', values.bookTitle)
+    formData.append('bookPrice', values.bookPrice)
+    formData.append('bookAuthor', values.bookAuthor)
+    formData.append('bookDescription', values.bookDescription)
+    formData.append('bookGenre', values.bookGenre)
+    formData.append('bookReleaseDate', values.bookReleaseDate)
+
+    const res = await axios.post("/book/create", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+
+    })
+
+    alert(res.data.msg)
+    
+    window.location.href = "/books"
+    
   };
 
   const formVariants = {
@@ -54,72 +104,81 @@ function UploadBooks() {
              <h1>Upload Books</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Title</label>
+          <label>Book Title</label>
           <input
             type="text"
-            name="title"
-            value={formData.title}
+            name="bookTitle"
+            value={values.bookTitle}
             onChange={handleChange}
             className="form-control"
           />
         </div>
         <div className="form-group">
-          <label>Author</label>
+          <label>Book Author</label>
           <input
             type="text"
-            name="author"
-            value={formData.author}
+            name="bookAuthor"
+            value={values.bookAuthor}
             onChange={handleChange}
             className="form-control"
           />
         </div>
         <div className="form-group">
           <label>Genre</label>
-          <input
-            type="text"
-            name="genre"
-            value={formData.genre}
-            onChange={handleChange}
-            className="form-control"
-          />
+               <select 
+                name="bookGenre"
+                value={values.bookGenre}
+                onChange={handleChange}
+                required>
+
+      <option value="">Select Book Genre</option>
+                {categories.map((category) => (
+                  <option value={category._id} key={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+
+
+          </select>
+         
         </div>
         <div className="form-group">
           <label>Publication Year</label>
           <input
-            type="text"
-            name="publicationYear"
-            value={formData.publicationYear}
+            type="date"
+            name="bookReleaseDate"
+            value={values.bookReleaseDate}
             onChange={handleChange}
             className="form-control"
           />
         </div>
         <div className="form-group">
-          <label>Price</label>
+          <label>Book Price</label>
           <input
             type="text"
-            name="price"
-            value={formData.price}
+            name="bookPrice"
+            value={values.bookPrice}
             onChange={handleChange}
             className="form-control"
           />
         </div>
         <div className="form-group">
-          <label>Description</label>
+          <label>Book Description</label>
           <textarea
-            name="description"
-            value={formData.description}
+            name="bookDescription"
+            value={values.bookDescription}
             onChange={handleChange}
             className="form-control"
           />
         </div>
         <div className="form-group">
-          <label>Cover Image URL</label>
+          <label>Book Image </label>
           <input
-            type="text"
-            name="coverImage"
-            value={formData.coverImage}
-            onChange={handleChange}
+            type="file"
+            onChange={handleImageUpload}
             className="form-control"
+            required
+            accept=".jpg"
           />
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>

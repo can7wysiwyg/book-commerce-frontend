@@ -8,6 +8,7 @@ import Management from "./components/admin/Management"
 import Categories from "./components/admin/Categories";
 import ManageBooks from "./components/admin/ManageBooks";
 import UploadBooks from "./components/admin/UploadBooks"
+import Login from "./components/admin/Login";
 
 
 function App() {
@@ -23,9 +24,10 @@ function App() {
     <Route path="/books" element={ <Books />} />
     <Route path="/book_single" element={<BookSingle />} />
     <Route path="/management" element={<Management />}/>
-    <Route path="/categories" element={Categories} />
+    <Route path="/categories" element={<Categories />} />
     <Route path="/manage_books" element={<ManageBooks />} />
     <Route path="/upload_books" element={<UploadBooks />}  />
+    <Route path="/aquarium" element={<Login />} />
 
 
 
