@@ -1,30 +1,37 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 
 function BookSingle() {
+    const{id} = useParams()
+    const[book, setBook] = useState({})
     const [quantity, setQuantity] = useState(1);
 
 
-    // useEffect(() => {
-    //     // Fetch data for the single product
-    //     axios.get(`https://api.example.com/products/${productId}`)
-    //       .then(response => {
-    //         setProduct(response.data);
-    //       })
-    //       .catch(error => {
-    //         console.error('Error fetching product:', error);
-    //       });
-    
-    //     // Fetch data for related products by genre
-    //     axios.get(`https://api.example.com/products?genre=${product?.genre}&limit=4`)
-    //       .then(response => {
-    //         setRelatedProducts(response.data.filter(p => p.id !== productId));
-    //       })
-    //       .catch(error => {
-    //         console.error('Error fetching related products:', error);
-    //       });
-    //   }, [productId, product?.genre]);
+    useEffect(() => {
+
+
+      const getBook = async() => {
+        const res = await axios.get(`/book/get_single/${id}`)
+
+        setBook(res.data.books)
+
+      }
+
+      getBook()
+
+        
+        // Fetch data for related products by genre
+        // axios.get(`https://api.example.com/products?genre=${product?.genre}&limit=4`)
+        //   .then(response => {
+        //     setRelatedProducts(response.data.filter(p => p.id !== productId));
+        //   })
+        //   .catch(error => {
+        //     console.error('Error fetching related products:', error);
+        //   });
+      }, [id]);
     
 
 
@@ -89,11 +96,14 @@ function BookSingle() {
         <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card mb-4">
-            <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1566425108l/33.jpg" alt="hello" className="card-img-top" />
+            <img src={book.bookImage} alt={book.bookTitle} className="card-img-top" />
             <div className="card-body">
-              <h5 className="card-title">fff</h5>
-              <p className="card-text">jjjjj</p>
-              <p className="card-text">333</p>
+              <h5 className="card-title">{book.bookTitle}</h5>
+              <p className="card-text" style={{fontSize: "18px", fontWeight: "bold", color: "#333"}}>{book.bookDescription}</p>
+
+              <p className="card-text">{book.bookAuthor}</p>
+             
+              <p className="card-text">MK {book.bookPrice}</p>
               <div className="d-flex align-items-center mb-3">
                 <button className="btn btn-secondary" onClick={decrementQuantity}>
                   <FaMinus />

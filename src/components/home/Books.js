@@ -1,63 +1,42 @@
-
+import axios from "axios"
 import "./books.css"
+import { useEffect, useState} from "react"
 
 function Books() {
+
+  const[books, setBooks] = useState([])
+
+  useEffect(() => {
+
+    const getBooks = async() => {
+
+      const res = await axios.get('/book/show_all')
+
+      setBooks(res.data.data)
+
+
+    }
+
+    getBooks()
+
+
+
+  }, [])
+
+
  
-    const products = [
-        {
-            id:1,
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-            title: "to kill a mocking bird",
-            description: "justice exists in gray",
-            price: 222
-
     
-        },
-    
-        {
-            id:2,
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-            title: "to kill a mocking bird",
-            description: "justice exists in gray",
-            price: 222
-
-    
-    
-        },
-        {
-            id:3,
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-            title: "to kill a mocking bird",
-            description: "justice exists in gray",
-            price: 222
-
-    
-    
-        },
-        {
-            id:4,
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-            title: "to kill a mocking bird",
-            description: "justice exists in gray",
-            price: 222
-
-    
-    
-        }
-    ]
-    
-
 
     return(<>
         <div className="container">
       <div className="row">
-        {products.map(product => (
-          <div className="col-md-4 mb-4" key={product.id}>
+        {books.map(book => (
+          <div className="col-md-4 mb-4" key={book._id}>
             <div className="card h-100 shadow-sm">
-              <img src={product.imageUrl} alt={product.title} className="card-img-top" />
+              <img src={book.bookImage} alt={book.bookTitle} className="card-img-top" />
               <div className="card-body">
-                <h5 className="card-title">{product.title}</h5>
-                <p className="card-text">{product.price}</p>
+                <a href={`/book_single/${book._id}`} className="card-title" style={{textDecoration: "none"}}>{book.bookTitle}</a>
+                <p className="card-text">MK {book.bookPrice}</p>
               </div>
               <div className="card-footer">
                 <button className="btn btn-primary">Buy Now</button>
