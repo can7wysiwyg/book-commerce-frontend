@@ -23,9 +23,9 @@ function BookSingle() {
 
 const getAllBooks = async() => {
 
-  const res = await axios.get('/book/show_all')
+  const res = await axios.get('/book/show')
 
-  setRelatedBooks(res.data.data)
+  setRelatedBooks(res.data.results)
 
 }
 
