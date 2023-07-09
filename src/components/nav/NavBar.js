@@ -69,7 +69,7 @@ const NavBar = () => {
       {AdminLogin()}
         <Nav className="ml-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/about">About</Nav.Link>
+          <Nav.Link href="/books">Books</Nav.Link>
           <Nav.Link href="/services">Services</Nav.Link>
           <Nav.Link href="/contact">Contact</Nav.Link>
           {isLogged ? loggedRouter() : ""}

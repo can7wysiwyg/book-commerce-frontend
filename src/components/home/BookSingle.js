@@ -81,7 +81,7 @@ const getAllBooks = async() => {
         <h2>Related Products</h2>
         <div className="row">
 {
-  relatedBooks?.map((relatedBook, index) => {
+  relatedBooks?.map((relatedBook) => {
     return  relatedBook.bookGenre === book.bookGenre ? <div className="col-md-3 mb-4" key={relatedBook.id}>
     <div className="card h-100">
       <img src={relatedBook.bookImage} alt={relatedBook.bookTitle} className="card-img-top" />

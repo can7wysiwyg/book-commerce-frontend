@@ -1,11 +1,15 @@
+import { useLocation } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 import axios from "axios";
-import "./books.css";
 import { useEffect, useState } from "react";
 
-function Books() {
+function AuthorBooks() {
+  const location = useLocation();
+  const authorName = location.state;
+
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // Adjust the number of items per page as needed
+  const itemsPerPage = 8; // Adjust the number of items per page as needed
 
   useEffect(() => {
     const getBooks = async () => {
@@ -18,9 +22,13 @@ function Books() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentBooks = books.slice(indexOfFirstItem, indexOfLastItem);
+  const currentBooks = books
+    .filter((book) => book.bookAuthor === authorName)
+    .slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(books.length / itemsPerPage);
+  const totalPages = Math.ceil(
+    books.filter((book) => book.bookAuthor === authorName).length / itemsPerPage
+  );
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   const changePage = (pageNumber) => {
@@ -28,20 +36,23 @@ function Books() {
   };
 
   return (
-    <div className="container" >
-      <div className="row" style={{marginBottom: "2rem"}}>
+    <>
+      <div className="row">
         {currentBooks.map((book) => (
-          <div className="col-md-4 mb-4" key={book._id}>
-            <div className="card h-100 shadow-sm" >
-              <img src={book.bookImage} alt={book.bookTitle} className="card-img-top" />
+          <div className="col-md-3 mb-4" key={book._id}>
+            <div className="card h-100">
+              <img
+                src={book.bookImage}
+                alt={book.bookTitle}
+                className="card-img-top"
+              />
               <div className="card-body">
-                <a href={`/book_single/${book._id}`} className="card-title" style={{ textDecoration: "none" }}>
-                  {book.bookTitle}
-                </a>
-                <p className="card-text">MK {book.bookPrice}</p>
-              </div>
-              <div className="card-footer">
-                <button className="btn btn-primary">Buy Now</button>
+                <h5 className="card-title">{book.bookTitle}</h5>
+                <p className="card-text">{book.bookPrice}</p>
+                <button className="btn btn-primary">
+                  <FaPlus className="mr-1" />
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
@@ -65,8 +76,8 @@ function Books() {
           ))}
         </ul>
       </nav>
-    </div>
+    </>
   );
 }
 
-export default Books;
+export default AuthorBooks;

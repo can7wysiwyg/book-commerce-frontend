@@ -9,6 +9,9 @@ import Categories from "./components/admin/Categories";
 import ManageBooks from "./components/admin/ManageBooks";
 import UploadBooks from "./components/admin/UploadBooks"
 import Login from "./components/admin/Login";
+import ByPrice from "./components/home/ByPrice";
+import CategoryItems from "./components/home/CategoryItems";
+import AuthorBooks from "./components/home/AuthorBooks";
 
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
     <Route path="/upload_books" element={<UploadBooks />}  />
     <Route path="/aquarium" element={<Login />} />
     <Route path="/book_single/:id" element={<BookSingle />} />
+    <Route path="/by_price" element={<ByPrice />} />
+    <Route path="/category/:id" element={<CategoryItems />} />
+    <Route path="/author_books" element={<AuthorBooks />} />
 
 
 
