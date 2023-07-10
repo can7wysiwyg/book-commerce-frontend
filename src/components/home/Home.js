@@ -11,6 +11,7 @@ export const Home = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const[categories, setCategories] = useState([])
+    const[cardsData, setCardsData] = useState([])
    const [selectedOption, setSelectedOption] = useState('');
    const [selectedCategory, setSelectedCategory] = useState('');
    const[selectedAuthor, setSelectedAuthor] = useState('')
@@ -18,6 +19,21 @@ export const Home = () => {
    const[books, setBooks] = useState([])
 
    const navigate = useNavigate();
+
+
+   useEffect(() => {
+
+    const getCards = async() => {
+
+      const res = await axios.get('/book/popular')
+      setCardsData(res.data.results)
+
+    }
+
+    getCards()
+
+
+   }, [])
 
 
   useEffect(() => {
@@ -99,40 +115,6 @@ useEffect(() => {
 
 
 
-const cardsData = [
-    {
-        id:1,
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-        title: "to kill a mocking bird",
-        description: "justice exists in gray"
-
-    },
-
-    {
-        id:2,
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-        title: "to kill a mocking bird",
-        description: "justice exists in gray"
-
-
-    },
-    {
-        id:3,
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-        title: "to kill a mocking bird",
-        description: "justice exists in gray"
-
-
-    },
-    {
-        id:4,
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg",
-        title: "to kill a mocking bird",
-        description: "justice exists in gray"
-
-
-    }
-]
 
 
 const handleCategoryChange = (event) => {
@@ -251,9 +233,9 @@ const handleAuthorChange = (event) => {
             {cardsData.map((card, index) => (
               <Col key={index} xs={12} md={3} className="mt-3">
                 <Card>
-                  <Card.Img variant="top" src={card.imageUrl} />
+                  <Card.Img variant="top" src={card.bookImage} />
                   <Card.Body>
-                    <Card.Title>{card.title}</Card.Title>
+                    <Card.Title>{card.bookTitle}</Card.Title>
                     <Card.Text>{card.description}</Card.Text>
                     <Row className="justify-content-center">
                     <div className="button-line">

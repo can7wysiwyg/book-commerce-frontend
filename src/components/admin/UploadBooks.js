@@ -101,7 +101,7 @@ function UploadBooks() {
       
     >
         <div className="col-md-6"> 
-             <h1>Upload Books</h1>
+             <h1>Upload Book</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Book Title</label>

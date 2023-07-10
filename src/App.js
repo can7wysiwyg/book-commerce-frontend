@@ -12,6 +12,7 @@ import Login from "./components/admin/Login";
 import ByPrice from "./components/home/ByPrice";
 import CategoryItems from "./components/home/CategoryItems";
 import AuthorBooks from "./components/home/AuthorBooks";
+import UpcomingBook from "./components/admin/UpcomingBook";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
     <Route path="/by_price" element={<ByPrice />} />
     <Route path="/category/:id" element={<CategoryItems />} />
     <Route path="/author_books" element={<AuthorBooks />} />
+    <Route path="/upcoming_book" element={<UpcomingBook />} />
 
 
 

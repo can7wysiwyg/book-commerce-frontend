@@ -49,6 +49,17 @@ function Management() {
               <p className="card-text">Manage Books On The Site</p>
             </div>
           </motion.div>
+          </motion.div>
+
+          <motion.div className="col-md-4 mb-4" variants={adminPanelVariants}>
+          <motion.div className="card" whileHover={{ scale: 1.05 }}>
+            <div className="card-body">
+              <a href='/upcoming_book' className="card-title">Upcoming Book Upload</a>
+              <p className="card-text">Upload Books Which are about to be released</p>
+            </div>
+          </motion.div>
+
+
         </motion.div>
       </div>
     </motion.div>
