@@ -15,6 +15,7 @@ import AuthorBooks from "./components/home/AuthorBooks";
 import UpcomingBook from "./components/admin/UpcomingBook";
 import NewBooks from "./components/home/NewBooks";
 import SearchBooks from "./components/home/SearchBooks";
+import NewBookSingle from "./components/home/NewBookSingle";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
     <Route path="/upcoming_book" element={<UpcomingBook />} />
     <Route path="/new_books" element={<NewBooks />} />
     <Route path="/search_books" element={<SearchBooks />} />
+    <Route path="/new_book_single/:id" element={<NewBookSingle />} />
 
 
 

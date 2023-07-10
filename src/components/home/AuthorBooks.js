@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -8,8 +8,8 @@ function AuthorBooks() {
   const authorName = location.state;
 
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Adjust the number of items per page as needed
+  const [booksByAuthor, setBooksByAuthor] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const getBooks = async () => {
@@ -20,62 +20,124 @@ function AuthorBooks() {
     getBooks();
   }, []);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentBooks = books
-    .filter((book) => book.bookAuthor === authorName)
-    .slice(indexOfFirstItem, indexOfLastItem);
+  useEffect(() => {
+    const getAuthorBooks = async () => {
+      const res = await axios.get(`/newbook/show_authors_books/bk?bookAuthor=${authorName}`);
+      const allBooksByAuthor = res.data.data;
+      const sortedBooksByAuthor = allBooksByAuthor.sort((a, b) => new Date(b.bookReleaseDate) - new Date(a.bookReleaseDate));
+      const recentBooksByAuthor = sortedBooksByAuthor.slice(0, 4); // Get the first four items
 
-  const totalPages = Math.ceil(
-    books.filter((book) => book.bookAuthor === authorName).length / itemsPerPage
-  );
-  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+      setBooksByAuthor(recentBooksByAuthor);
+    };
 
-  const changePage = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    getAuthorBooks();
+  }, [authorName]);
+
+
+
+
+
+  const authorBooks = books.filter((book) => book.bookAuthor === authorName);
+  const totalSlides = authorBooks.length;
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + totalSlides) % totalSlides);
   };
 
   return (
     <>
-      <div className="row">
-        {currentBooks.map((book) => (
-          <div className="col-md-3 mb-4" key={book._id}>
-            <div className="card h-100">
-              <img
-                src={book.bookImage}
-                alt={book.bookTitle}
-                className="card-img-top"
-              />
-              <div className="card-body">
-                <h5 className="card-title">{book.bookTitle}</h5>
-                <p className="card-text">{book.bookPrice}</p>
-                <button className="btn btn-primary">
-                  <FaPlus className="mr-1" />
-                  Add to Cart
-                </button>
+      <h1 style={{ fontFamily: "monospace", fontStyle: "italic", textAlign: "center" }}>
+        Books by {authorName}
+      </h1>
+      <div id="authorCarousel" className="carousel slide" data-ride="carousel">
+        <div className="carousel-inner">
+          {authorBooks.map((book, index) => (
+            <div
+              key={book._id}
+              className={`carousel-item ${index === currentSlide ? "active" : ""}`}
+            >
+              <div className="d-flex justify-content-center align-items-center">
+                <div className="col-md-3 mb-4">
+                  <div className="card h-100">
+                    <img src={book.bookImage} alt={book.bookTitle} className="card-img-top" />
+                    <div className="card-body">
+                      <a href={`/book_single/${book._id}`} className="card-title">
+                        {book.bookTitle}
+                      </a>
+                      <p className="card-text">{book.bookPrice}</p>
+                      <button className="btn btn-primary">
+                        <FaPlus className="mr-1" />
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#authorCarousel"
+          data-bs-slide="prev"
+          onClick={goToPrevSlide}
+        >
+          <span className="carousel-control-prev-icon" aria-hidden="true">
+            <FaChevronLeft />
+          </span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#authorCarousel"
+          data-bs-slide="next"
+          onClick={goToNextSlide}
+        >
+          <span className="carousel-control-next-icon" aria-hidden="true">
+            <FaChevronRight />
+          </span>
+          <span className="visually-hidden">Next</span>
+        </button>
       </div>
 
-      <nav>
-        <ul className="pagination">
-          {pageNumbers.map((pageNumber) => (
-            <li
-              key={pageNumber}
-              className={`page-item ${currentPage === pageNumber ? "active" : ""}`}
-            >
-              <button
-                className="page-link"
-                onClick={() => changePage(pageNumber)}
-              >
-                {pageNumber}
+      <div style={{ marginTop: "4rem", marginBottom: "4rem" }}>
+  <h1 style={{ fontFamily: "Times New Roman", fontStyle: "italic" }}>
+    Upcoming books by author
+  </h1>
+
+  {booksByAuthor.length === 0 ? (
+    <p>Author has no new books</p>
+  ) : (
+    <div className="row">
+      {booksByAuthor.map((book) => (
+        <div className="col-md-3" key={book._id}>
+          <div className="card h-100">
+            <img src={book.bookImage} alt={book.bookTitle} className="card-img-top" />
+            <div className="card-body">
+              <a href={`/new_book_single/${book._id}`} className="card-title">
+                {book.bookTitle}
+              </a>
+              <p className="card-text">{book.bookPrice}</p>
+              <button className="btn btn-primary">
+                <FaPlus className="mr-1" />
+                Add to Cart
               </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+
+      
     </>
   );
 }

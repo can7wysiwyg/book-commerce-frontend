@@ -5,7 +5,7 @@ import './footer.css'; // Import the CSS file for styling
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" style={{marginTop: "4rem"}}>
       <div className="social-icons">
         <a href="https://www.facebook.com/your-facebook-page" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faFacebook} />
