@@ -26,11 +26,13 @@ function CategoryItems() {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = results
-      .filter((result) => result.bookGenre === id)
+      .filter((result) => result.bookGenre === id) 
       .slice(indexOfFirstItem, indexOfLastItem);
 
     return (
       <>
+      {currentItems.length > 0 ? (
+
         <div className="row">
           {currentItems.map((result) => (
             <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={result._id}>
@@ -41,7 +43,8 @@ function CategoryItems() {
                   className="card-img-top"
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{result.bookTitle}</h5>
+                  <a href={`/book_single/${result._id}`} className="card-title">{result.bookTitle}</a>
+                  <p className="card-title">by {result.bookAuthor}</p>
                   <p className="card-text">{result.bookPrice}</p>
                   <button className="btn btn-primary">
                     <FaPlus className="mr-1" />
@@ -51,7 +54,9 @@ function CategoryItems() {
               </div>
             </div>
           ))}
-        </div>
+        </div> ) : (
+        <h1 className="text-danger">No Books Of This Genre At The Moment...</h1>
+      )}
         <nav>
           <ul className="pagination">
             {paginationItems()}

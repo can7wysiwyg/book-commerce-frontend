@@ -5,6 +5,9 @@ import {Card, Carousel, Button, Container, Row, Col } from 'react-bootstrap';
 import './home.css';
 import { useNavigate,  } from 'react-router-dom';
 import axios from 'axios';
+import Img1 from "./images/img1.jpg"
+import Img2 from "./images/img2.jpg"
+import Img3 from "./images/img3.jpg"
 
 
 export const Home = () => {
@@ -19,6 +22,10 @@ export const Home = () => {
    const[books, setBooks] = useState([])
 
    const navigate = useNavigate();
+
+
+
+
 
 
    useEffect(() => {
@@ -135,6 +142,12 @@ const handleAuthorChange = (event) => {
 }
 
 
+const handleRedirect = async() => {
+ window.location.href = "/books"
+
+}
+
+
 
 
 
@@ -145,12 +158,12 @@ const handleAuthorChange = (event) => {
           <div className="slide-container">
             <img
               className="d-block w-100"
-              src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={Img1}
               alt="Slide 1"
             />
             <div className="slide-content">
-              <h1>Slide 1 Text</h1>
-              <Button variant="secondary">Learn More</Button>
+              <h1>Books are life! Read books and...</h1>
+              <Button variant="secondary" onClick={handleRedirect}>Learn More</Button>
             </div>
           </div>
         </Carousel.Item>
@@ -158,12 +171,12 @@ const handleAuthorChange = (event) => {
           <div className="slide-container">
             <img
               className="d-block w-100"
-              src="https://images.pexels.com/photos/220429/pexels-photo-220429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={Img2}
               alt="Slide 2"
             />
             <div className="slide-content">
-              <h1>Slide 2 Text</h1>
-              <Button variant="secondary">Learn More</Button>
+              <h1>Expand your knowledge, broaden your horizons,</h1>
+              <Button variant="secondary" onClick={handleRedirect}>Learn More</Button>
             </div>
           </div>
         </Carousel.Item>
@@ -171,17 +184,19 @@ const handleAuthorChange = (event) => {
           <div className="slide-container">
             <img
               className="d-block w-100"
-              src="https://images.pexels.com/photos/1478685/pexels-photo-1478685.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={Img3}
               alt="Slide 3"
             />
             <div className="slide-content">
-              <h1>Slide 3 Text</h1>
-              <Button variant="secondary">Learn More</Button>
+              <h1>and embark on new adventures through the pages of books.</h1>
+              <Button variant="secondary" onClick={handleRedirect}>Learn More</Button>
             </div>
           </div>
         </Carousel.Item>
       </Carousel>
 
+
+      
       <Container className="input-container mt-4 mb-4">
         <Row className="justify-content-center align-items-center">
           <Col xs={12} md={4}>
@@ -247,7 +262,9 @@ const handleAuthorChange = (event) => {
 
 
   <div className="line"></div>
-  <button className="custom-button">
+  <button className="custom-button" onClick={() => {
+    window.location.href = `/book_single/${card._id}`
+  }}>
   <FaShoppingCart className="cart-icon" />
   Buy Now
 </button>
@@ -271,7 +288,7 @@ const handleAuthorChange = (event) => {
       <div className="overlay">
         <div className="content">
           <h1>Hey Reader!</h1>
-          <p>Browse thru our entire collection of <a href='/'  className='btn btn-secondary curvy'>books </a></p>
+          <p>Browse thru our entire collection of <a href='/search_books'  className='btn btn-secondary curvy'>books </a></p>
         </div>
       </div>
     </div>

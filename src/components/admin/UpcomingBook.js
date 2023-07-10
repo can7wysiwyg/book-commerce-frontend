@@ -73,7 +73,7 @@ function UpcomingBook() {
    
        alert(res.data.msg)
        
-       window.location.href = "/books"
+       window.location.href = "/new_books"
        
      };
    

@@ -13,6 +13,8 @@ import ByPrice from "./components/home/ByPrice";
 import CategoryItems from "./components/home/CategoryItems";
 import AuthorBooks from "./components/home/AuthorBooks";
 import UpcomingBook from "./components/admin/UpcomingBook";
+import NewBooks from "./components/home/NewBooks";
+import SearchBooks from "./components/home/SearchBooks";
 
 
 function App() {
@@ -37,6 +39,9 @@ function App() {
     <Route path="/category/:id" element={<CategoryItems />} />
     <Route path="/author_books" element={<AuthorBooks />} />
     <Route path="/upcoming_book" element={<UpcomingBook />} />
+    <Route path="/new_books" element={<NewBooks />} />
+    <Route path="/search_books" element={<SearchBooks />} />
+
 
 
 
