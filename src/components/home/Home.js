@@ -251,7 +251,7 @@ const handleRedirect = async() => {
                   <Card.Img variant="top" src={card.bookImage} />
                   <Card.Body>
                     <Card.Title>{card.bookTitle}</Card.Title>
-                    <Card.Text>{card.description}</Card.Text>
+                    <Card.Title>{card.bookAuthor}</Card.Title>
                     <Row className="justify-content-center">
                     <div className="button-line">
 
