@@ -101,7 +101,7 @@ const getAllBooks = async() => {
     <div className="card h-100">
       <img src={relatedBook.bookImage} alt={relatedBook.bookTitle} className="card-img-top" />
       <div className="card-body">
-        <h5 className="card-title">{relatedBook.bookTitle}</h5>
+        <a href={`/book_single/${relatedBook._id}`} className="card-title">{relatedBook.bookTitle}</a>
         <p style={{fontWeight: "bold"}}>{relatedBook.bookAuthor}</p>
         <p className="card-text">{relatedBook.bookPrice}</p>
         <button className="btn btn-primary">
