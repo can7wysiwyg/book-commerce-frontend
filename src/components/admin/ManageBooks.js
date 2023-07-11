@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Table, Button, OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
+import { Table, Button, OverlayTrigger, Tooltip, Modal, Form } from 'react-bootstrap';
 import { GlobalState } from "../../GlobalState"
 import axios from 'axios';
 
 const ManageBooks = () => {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 5;
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const getBooks = async () => {
@@ -17,24 +17,41 @@ const ManageBooks = () => {
     getBooks();
   }, []);
 
-  
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset to the first page when searching
+  };
+
+  // Filter books based on the search query
+  const filteredBooks = books.filter((book) =>
+    book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Pagination calculations
+  const booksPerPage = 5;
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
   // Change page
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-
-  
-
-
   return (
     <>
+      {/* Search Bar */}
+      <div style={{margin: "4rem"}}>
+      <Form.Group >
+        <Form.Control
+          type="text"
+          placeholder="Search by title"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+      </Form.Group>
+      </div>
+
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -51,10 +68,7 @@ const ManageBooks = () => {
               </td>
               <td>{book.bookTitle}</td>
               <td>
-                
                 <Buttons book={book} />
-
-                
               </td>
             </tr>
           ))}
@@ -64,7 +78,7 @@ const ManageBooks = () => {
       {/* Pagination */}
       <nav>
         <ul className="pagination">
-          {Array.from({ length: Math.ceil(books.length / booksPerPage) }).map((_, index) => (
+          {Array.from({ length: Math.ceil(filteredBooks.length / booksPerPage) }).map((_, index) => (
             <li
               key={index}
               className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
@@ -78,6 +92,9 @@ const ManageBooks = () => {
     </>
   );
 };
+
+
+
 
 
 const Buttons = ({book}) => {
