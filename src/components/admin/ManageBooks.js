@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
+import axios from 'axios';
 
-const ManageBooks = ({ books }) => {
+const ManageBooks = () => {
+  const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 5;
+
+  useEffect(() => {
+    const getBooks = async () => {
+      const res = await axios.get("/book/show_all");
+      setBooks(res.data.data);
+    };
+
+    getBooks();
+  }, []);
+
+
 
   // Pagination calculations
   const indexOfLastBook = currentPage * booksPerPage;
@@ -29,9 +42,9 @@ const ManageBooks = ({ books }) => {
           {currentBooks.map((book) => (
             <tr key={book.id}>
               <td>
-                <img src={book.image} alt={book.title} style={{ width: '50px' }} />
+                <img src={book.bookImage} alt={book.bookTitle} style={{ width: '50px' }} />
               </td>
-              <td>{book.title}</td>
+              <td>{book.bookTitle}</td>
               <td>
                 <Button variant="primary" size="sm" className="mr-2">
                   Edit

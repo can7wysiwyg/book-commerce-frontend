@@ -32,7 +32,7 @@ function App() {
     <Route path="/book_single" element={<BookSingle />} />
     <Route path="/management" element={<Management />}/>
     <Route path="/categories" element={<Categories />} />
-    <Route path="/manage_books" element={<ManageBooks />} />
+    <Route path="/book_management" element={<ManageBooks />} />
     <Route path="/upload_books" element={<UploadBooks />}  />
     <Route path="/aquarium" element={<Login />} />
     <Route path="/book_single/:id" element={<BookSingle />} />
