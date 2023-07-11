@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import axios from "axios";
+import FilterBoxes from "./FilterBoxes";
 
 function CategoryItems() {
   const { id } = useParams();
@@ -31,40 +32,49 @@ function CategoryItems() {
 
     return (
       <>
-      {currentItems.length > 0 ? (
+       <div style={{marginBottom: "2rem", marginTop: "1rem"}}>
+     <FilterBoxes />
 
-        <div className="row">
-          {currentItems.map((result) => (
-            <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={result._id}>
-              <div className="card h-100">
-                <img
-                  src={result.bookImage}
-                  alt={result.bookTitle}
-                  className="card-img-top"
-                />
-                <div className="card-body">
-                  <a href={`/book_single/${result._id}`} className="card-title">{result.bookTitle}</a>
-                  <p className="card-title">by {result.bookAuthor}</p>
-                  <p className="card-text">{result.bookPrice}</p>
-                  <button className="btn btn-primary">
-                    <FaPlus className="mr-1" />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> ) : (
-        <h1 className="text-danger">No Books Of This Genre At The Moment...</h1>
-      )}
-        <nav>
-          <ul className="pagination">
-            {paginationItems()}
-          </ul>
-        </nav>
-      </>
-    );
-  }
+     </div> 
+
+     {currentItems.length > 0 ? (
+  <div className="row">
+    {currentItems.map((result) => (
+      <div className="col-lg-4 col-md-6 col-sm-12 mb-4" key={result._id}>
+        <div className="card">
+          <img
+            src={result.bookImage}
+            alt={result.bookTitle}
+            className="card-img-top"
+          />
+          <div className="card-body d-flex flex-column">
+            <a href={`/book_single/${result._id}`} className="card-title">{result.bookTitle}</a>
+            <p className="card-title">by {result.bookAuthor}</p>
+            <p className="card-text">{result.bookPrice}</p>
+            <button className="btn btn-primary btn-sm mt-auto">
+              <FaPlus className="mr-1" />
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+) : (
+  <h1 className="text-danger">No Books Of This Genre At The Moment...</h1>
+)}
+ 
+
+     
+<nav>
+  <ul className="pagination">{paginationItems()}</ul>
+</nav>
+</>
+);
+}
+
+
+     
 
   const paginationItems = () => {
     const totalPages = Math.ceil(

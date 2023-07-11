@@ -1,6 +1,7 @@
 import axios from "axios";
 import "./books.css";
 import { useEffect, useState } from "react";
+import FilterBoxes from "./FilterBoxes";
 
 function Books() {
   const [books, setBooks] = useState([]);
@@ -29,6 +30,11 @@ function Books() {
 
   return (
     <div className="container" >
+      <div style={{marginBottom: "2rem", marginTop: "1rem"}}>
+     <FilterBoxes />
+
+     </div>
+
       <div className="row" style={{marginBottom: "2rem"}}>
         {currentBooks.map((book) => (
           <div className="col-md-4 mb-4" key={book._id}>

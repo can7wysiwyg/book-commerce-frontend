@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
+import FilterBoxes from './FilterBoxes';
 
 function BookSingle() {
   const { id } = useParams();
@@ -56,6 +57,12 @@ const getAllBooks = async() => {
   return (
     <>
        <div className="container">
+       <div style={{marginBottom: "2rem", marginTop: "1rem"}}>
+     <FilterBoxes />
+
+     </div>
+
+
         <div className="row justify-content-center">
           <div className="col-md-8">
             <div className="card mb-4">

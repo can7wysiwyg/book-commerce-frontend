@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import moment from "moment/moment";
 import "./newbooksingle.css"; 
 import {  FaPlus } from 'react-icons/fa';
+import FilterBoxes from "./FilterBoxes";
 
 function NewBookSingle() {
   const { id } = useParams();
@@ -37,6 +38,11 @@ function NewBookSingle() {
 
   return (
     <>
+     <div style={{marginBottom: "2rem", marginTop: "1rem"}}>
+     <FilterBoxes />
+
+     </div> 
+
     <div className="container d-flex justify-content-center align-items-center">
       <div className="product-details">
         <h3 className="product-title">{book.bookTitle} by {book.bookAuthor}</h3>

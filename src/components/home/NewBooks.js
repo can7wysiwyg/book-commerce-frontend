@@ -1,6 +1,7 @@
 import axios from "axios";
 import "./books.css";
 import { useEffect, useState } from "react";
+import FilterBoxes from "./FilterBoxes";
 
 function NewBooks() {
   const [books, setBooks] = useState([]);
@@ -37,7 +38,13 @@ function NewBooks() {
 
   return (
     <div className="container" >
-        <p style={{fontFamily: "monospace", fontStyle: "italic", textAlign: "center"}}>upcoming books...</p>
+        <h1 style={{fontFamily: "monospace", fontStyle: "italic", textAlign: "center"}}>upcoming books...</h1>
+
+        <div style={{marginBottom: "3rem", marginTop: "3rem"}}>
+     <FilterBoxes />
+
+     </div>
+
       <div className="row" style={{marginBottom: "2rem"}}>
         {currentBooks.map((book) => (
           <div className="col-md-4 mb-4" key={book._id}>

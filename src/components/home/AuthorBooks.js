@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { FaPlus, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import FilterBoxes from "./FilterBoxes";
 
 function AuthorBooks() {
   const location = useLocation();
@@ -53,6 +54,12 @@ function AuthorBooks() {
       <h1 style={{ fontFamily: "monospace", fontStyle: "italic", textAlign: "center" }}>
         Books by {authorName}
       </h1>
+
+      <div style={{marginBottom: "2rem", marginTop: "2rem"}}>
+     <FilterBoxes />
+
+     </div> 
+
       <div id="authorCarousel" className="carousel slide" data-ride="carousel">
         <div className="carousel-inner">
           {authorBooks.map((book, index) => (
