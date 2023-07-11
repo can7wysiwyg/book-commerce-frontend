@@ -3,14 +3,14 @@ import { Table, Button, OverlayTrigger, Tooltip, Modal, Form } from 'react-boots
 import { GlobalState } from "../../GlobalState"
 import axios from 'axios';
 
-const ManageBooks = () => {
+const ManageNewBooks = () => {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const getBooks = async () => {
-      const res = await axios.get("/book/show_all");
+      const res = await axios.get("/newbook/show_all");
       setBooks(res.data.data);
     };
 
@@ -111,18 +111,24 @@ const Buttons = ({book}) => {
     setShowModal(false);
   };
 
+  const handleDelete = async () => {
+    try {
+      const res = await axios.delete(`/newbook/delete_single/${book._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      alert(res.data.msg);
 
-
-const handleDelete = async() => {
-  const res = await axios.delete(`/book/delete_single/${book._id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
+      window.location.href = '/new_book_management'
+  
+      
+    } catch (error) {
+      
     }
-  })
-  alert(res.data.msg)
+  };
 
-  window.location.href = '/book_management'
-}
 
 
 
@@ -130,7 +136,6 @@ const handleDelete = async() => {
 
 
   return(<>
-
 
 <Button variant="primary" size="md" className="mr-2 mb-2 mb-md-0" onClick={() => setShowModal(true)}>
   Edit
@@ -143,6 +148,8 @@ const handleDelete = async() => {
 </OverlayTrigger>
 
 
+
+
       {/* Modal */}
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
@@ -152,11 +159,14 @@ const handleDelete = async() => {
         <p>Edit the book's info:</p>
               <ul>
                 <li>
-                  <a href={`/update_list/${book._id}`}>update book info</a>
+                  <a href={`/update_description/${book._id}`}>update book description</a>
+                </li>
+                <li>
+                  <a href={`/update_release/${book._id}`}>update book release data</a>
                 </li>
               
                 <li>
-                  <a href={`/book_update_picture/${book._id}`}>update book picture</a>
+                  <a href={`/newbook_update_picture/${book._id}`}>update book picture</a>
                 </li>
               </ul>
         
@@ -177,4 +187,4 @@ const handleDelete = async() => {
 }
 
 
-export default ManageBooks;
+export default ManageNewBooks;

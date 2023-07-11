@@ -158,14 +158,19 @@ const handleRedirect = async() => {
       </section>
 
       <div className="image-section">
-      <div className="overlay">
-        <div className="content">
-          <h1>Hey Reader!</h1>
-          <p>Browse thru our entire collection of <a href='/search_books'  className='btn btn-secondary curvy'>books </a></p>
-        </div>
-      </div>
+  <div className="overlay">
+    <div className="content">
+      <h1>Hey Reader!</h1>
+      <p>
+        Browse through our entire collection of&nbsp;
+        <a href="/search_books" className="btn btn-primary rounded-pill curvy" style={{color: "red", fontWeight: "bold"}}>
+          Books
+        </a>
+      </p>
     </div>
-     
+  </div>
+</div>
+
 
 
      

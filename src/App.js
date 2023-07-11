@@ -23,6 +23,10 @@ import BookAuthor from "./components/admin/BookAuthor";
 import BookDescriptionUpdate from "./components/admin/BookDescriptionUpdate";
 import BookDateUpdate from "./components/admin/BookDateUpdate";
 import BookPrice from "./components/admin/BookPrice";
+import ManageNewBooks from "./components/admin/ManageNewBooks";
+import NewBookCover from "./components/admin/NewBookCover";
+import NewBookDescription from "./components/admin/NewBookDescription";
+import NewBookRelease from "./components/admin/NewBookRelease";
 
 
 function App() {
@@ -57,6 +61,10 @@ function App() {
     <Route path="/book_description/:id" element={<BookDescriptionUpdate />} />
     <Route path="/book_release/:id" element={<BookDateUpdate />} />
     <Route path="/book_price/:id" element={<BookPrice />} />
+    <Route path="/new_book_management" element={<ManageNewBooks />} />
+    <Route path="/newbook_update_picture/:id" element={<NewBookCover />} />
+    <Route path="/update_description/:id" element={<NewBookDescription />} />
+    <Route path="/update_release/:id" element={<NewBookRelease />} />
 
 
 

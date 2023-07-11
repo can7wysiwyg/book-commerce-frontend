@@ -71,6 +71,7 @@ const NavBar = () => {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/books">Books</Nav.Link>
           <Nav.Link href="/new_books">New Books</Nav.Link>
+          <Nav.Link href="/search_books">Search Books</Nav.Link>
           <Nav.Link href="/contact">Contact</Nav.Link>
           {isLogged ? loggedRouter() : ""}
         </Nav>
