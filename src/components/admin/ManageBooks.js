@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Table, Button, OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
+import { GlobalState } from "../../GlobalState"
 import axios from 'axios';
 
 const ManageBooks = () => {
@@ -16,7 +17,7 @@ const ManageBooks = () => {
     getBooks();
   }, []);
 
-
+  
 
   // Pagination calculations
   const indexOfLastBook = currentPage * booksPerPage;
@@ -27,6 +28,10 @@ const ManageBooks = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+
+  
+
 
   return (
     <>
@@ -46,12 +51,10 @@ const ManageBooks = () => {
               </td>
               <td>{book.bookTitle}</td>
               <td>
-                <Button variant="primary" size="sm" className="mr-2">
-                  Edit
-                </Button>
-                <Button variant="danger" size="sm">
-                  Delete
-                </Button>
+                
+                <Buttons book={book} />
+
+                
               </td>
             </tr>
           ))}
@@ -75,5 +78,89 @@ const ManageBooks = () => {
     </>
   );
 };
+
+
+const Buttons = ({book}) => {
+  const state = useContext(GlobalState)
+  const token = state.token
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleEdit = () => {
+    
+    setShowModal(false);
+  };
+
+
+
+const handleDelete = async() => {
+  const res = await axios.delete(`/book/delete_single/${book._id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  alert(res.data.msg)
+
+  window.location.href = '/book_management'
+}
+
+
+
+  const deleteButtonTooltip = <Tooltip id="delete-tooltip">Delete</Tooltip>;
+
+
+  return(<>
+
+
+<Button variant="primary" size="md" className="mr-2" onClick={() => setShowModal(true)}>
+        Edit
+      </Button>
+
+
+              
+  
+  <OverlayTrigger placement="top" overlay={deleteButtonTooltip}>
+  <Button variant="danger" size="md" onClick={handleDelete}>
+    Delete
+  </Button>
+</OverlayTrigger>
+
+
+      {/* Modal */}
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Book</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <p>Edit the book's info:</p>
+              <ul>
+                <li>
+                  <a href={`/update_list/${book._id}`}>update book info</a>
+                </li>
+              
+                <li>
+                  <a href={`/book_update_picture/${book._id}`}>update book picture</a>
+                </li>
+              </ul>
+        
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleEdit}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+  
+  </>)
+}
+
 
 export default ManageBooks;
