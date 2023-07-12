@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaShoppingCart, FaPlus } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import FilterBoxes from './FilterBoxes';
 
@@ -8,7 +8,6 @@ function BookSingle() {
   const { id } = useParams();
   const navigate = useNavigate()
   const [book, setBook] = useState({});
-  const [quantity, setQuantity] = useState(1);
   const[relatedBooks, setRelatedBooks] = useState([])
   
 
@@ -38,16 +37,7 @@ const getAllBooks = async() => {
     
   }, [id]);
 
-  const incrementQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
-  };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
-    }
-  };
-
+ 
   const handleRedirect = async() => {
     const authorName = book.bookAuthor
     navigate('/author_books', {state: authorName})
@@ -74,15 +64,7 @@ const getAllBooks = async() => {
                 </p>
                 <p className="card-text text-primary" onClick={handleRedirect}>{book.bookAuthor}</p>
                 <p className="card-text">MK {book.bookPrice}</p>
-                <div className="d-flex align-items-center mb-3">
-                  <button className="btn btn-secondary" onClick={decrementQuantity}>
-                    <FaMinus />
-                  </button>
-                  <span className="mx-2">{quantity}</span>
-                  <button className="btn btn-secondary" onClick={incrementQuantity}>
-                    <FaPlus />
-                  </button>
-                </div>
+                
                 <button className="btn btn-primary">
                   <FaShoppingCart className="mr-1" />
                   Add to Cart
