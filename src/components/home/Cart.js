@@ -6,7 +6,12 @@ import { Modal, Button, Container, Form, Col, Row } from 'react-bootstrap';
 function Cart() {
   const [items, setItems] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [values, setValues] = useState({email: "", fullname: "", phonenumber: "", address: ""});
+  const [values, setValues] = useState({
+    email: "",
+    fullname: "",
+    phonenumber: "",
+    address: ""
+  });
 
   useEffect(() => {
     const cartItems = getCart().map(item => ({ ...item, quantity: 1 }));
@@ -57,11 +62,22 @@ function Cart() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setValues({ ...values, [name]: value })
-     };
+    setValues({ ...values, [name]: value });
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    const cartData = items.map(item => ({
+      ...item,
+      quantity: item.quantity,
+    }));
+    const orderData = {
+      userDetails: values,
+      cartContents: cartData,
+    };
+    // Send the orderData to the server
+    console.log(orderData);
+
     // Perform necessary operations with the form data
     // Close the modal after form submission or perform any other desired actions
     setShowModal(false);
@@ -124,71 +140,62 @@ function Cart() {
           <Modal.Title>Checkout</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Container>
-        <p>Write Your Details To Place Your Order</p>
-      <Row className="justify-content-md-center">
-        <Col xs={12} md={6}>
-         
-          
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicName">
-    
-              <Form.Control
-                type="text"
-                name="fullname"
-                 value={values.fullname}
-                onChange={handleInputChange}
-                
-                placeholder="your fullname"
-             required />
-            </Form.Group>
+          <Container>
+            <p>Write Your Details To Place Your Order</p>
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={6}>
+                <Form onSubmit={handleFormSubmit}>
+                  <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Control
+                      type="text"
+                      name="fullname"
+                      value={values.fullname}
+                      onChange={handleInputChange}
+                      placeholder="Your fullname"
+                      required
+                    />
+                  </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-            
-              <Form.Control
-                type="email"
-                name="email"
-                value={values.email}
-                onChange={handleInputChange}
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      value={values.email}
+                      onChange={handleInputChange}
+                      placeholder="Your email"
+                      required
+                    />
+                  </Form.Group>
 
-                placeholder=" your email"
-                required
-              />
-            </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+                    <Form.Control
+                      type="number"
+                      name="phonenumber"
+                      value={values.phonenumber}
+                      onChange={handleInputChange}
+                      placeholder="Your phone number"
+                      required
+                    />
+                  </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-            
-              <Form.Control
-                type="number"
-                name="phonenumber"
-                value={values.phonenumber}
-                onChange={handleInputChange}
-                 placeholder=" your phone number"
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicAddress">
-            
-              <Form.Control
-                type="text"
-                name="address"
-                value={values.address}
-                onChange={handleInputChange}
-                placeholder=" your area of residence"
-                required
-              />
-            </Form.Group>
-          
-            <Button variant="danger" type="submit">
-              Submit
-            </Button> 
-          </Form>
-          
-        </Col>
-      </Row>
-    </Container>
+                  <Form.Group className="mb-3" controlId="formBasicAddress">
+                    <Form.Control
+                      type="text"
+                      name="address"
+                      value={values.address}
+                      onChange={handleInputChange}
+                      placeholder="Your area of residence"
+                      required
+                    />
+                  </Form.Group>
 
-          
+                  <Button variant="danger" type="submit">
+                    Submit
+                  </Button>
+                </Form>
+              </Col>
+            </Row>
+          </Container>
         </Modal.Body>
       </Modal>
     </>
