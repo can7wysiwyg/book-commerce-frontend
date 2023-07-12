@@ -65,24 +65,42 @@ function Cart() {
     setValues({ ...values, [name]: value });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const cartData = items.map(item => ({
       ...item,
       quantity: item.quantity,
     }));
     const orderData = {
-      userDetails: values,
+      fullname: values.fullname,
+      email: values.email,
+      phonenumber: values.phonenumber,
+      address: values.address,
       cartContents: cartData,
     };
-    // Send the orderData to the server
-    console.log(orderData);
-
-    // Perform necessary operations with the form data
-    // Close the modal after form submission or perform any other desired actions
-    setShowModal(false);
+  
+    try {
+      const response = await fetch('/cartt/make_order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+  
+      if (response.ok) {
+        console.log('Order placed successfully');
+        setShowModal(false);
+      } else {
+        console.log('Error placing the order');
+      }
+    } catch (error) {
+      console.log('Error placing the order', error);
+    }
   };
+  
 
+  
   if (items.length === 0) {
     return (
       <div style={{ margin: "2rem", fontFamily: "Times New Roman", fontStyle: "italic", textAlign: "center", color: "red" }}>
