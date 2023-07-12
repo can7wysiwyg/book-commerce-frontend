@@ -32,19 +32,15 @@ export const Home = () => {
 
    }, [])
 
+
+
+
    const shouldRedirect = redirect => {
     if (redirect) {
-      let userChoice = window.confirm("Would you like to continue adding books to cart?");
-      if (userChoice) {
-       
-        window.location.href = '/';
-      } else {
-       
-        window.location.href = '/cart';
-      }
+        return window.location.href = '/cart'
     }
-  };
-  
+};
+
   
 
   
