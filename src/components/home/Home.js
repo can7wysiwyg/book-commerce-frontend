@@ -8,12 +8,15 @@ import Img1 from "./images/img1.jpg"
 import Img2 from "./images/img2.jpg"
 import Img3 from "./images/img3.jpg"
 import FilterBoxes from './FilterBoxes';
+import { addItem } from "../../api/CartApi"
 
 
 export const Home = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const[cardsData, setCardsData] = useState([])
+    const [redirect, setRedirect] = useState(false);
+
    
    useEffect(() => {
 
@@ -29,7 +32,19 @@ export const Home = () => {
 
    }, [])
 
-
+   const shouldRedirect = redirect => {
+    if (redirect) {
+      let userChoice = window.confirm("Would you like to continue adding books to cart?");
+      if (userChoice) {
+       
+        window.location.href = '/';
+      } else {
+       
+        window.location.href = '/cart';
+      }
+    }
+  };
+  
   
 
   
@@ -60,6 +75,8 @@ const handleRedirect = async() => {
 
 
   return (
+    <>
+    {shouldRedirect(redirect)}
     <div className="homepage">
       <Carousel indicators={true}>
         <Carousel.Item>
@@ -128,7 +145,9 @@ const handleRedirect = async() => {
                     <Row className="justify-content-center">
                     <div className="button-line">
 
-                    <button className="custom-button">
+                    <button className="custom-button" onClick={() => {
+    window.location.href = `/book_single/${card._id}`
+  }}   >
   <IoMdInformationCircle className="info-icon" />
   Learn More
 </button>
@@ -136,8 +155,13 @@ const handleRedirect = async() => {
 
   <div className="line"></div>
   <button className="custom-button" onClick={() => {
-    window.location.href = `/book_single/${card._id}`
-  }}>
+addItem(card, () => {
+
+  setRedirect(true);
+})
+
+
+  }} >
   <FaShoppingCart className="cart-icon" />
   Buy Now
 </button>
@@ -177,6 +201,7 @@ const handleRedirect = async() => {
       
       
     </div>
+    </>
   );
 };
 

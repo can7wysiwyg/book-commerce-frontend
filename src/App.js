@@ -27,6 +27,7 @@ import ManageNewBooks from "./components/admin/ManageNewBooks";
 import NewBookCover from "./components/admin/NewBookCover";
 import NewBookDescription from "./components/admin/NewBookDescription";
 import NewBookRelease from "./components/admin/NewBookRelease";
+import Cart from "./components/home/Cart";
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
     <Route path="/newbook_update_picture/:id" element={<NewBookCover />} />
     <Route path="/update_description/:id" element={<NewBookDescription />} />
     <Route path="/update_release/:id" element={<NewBookRelease />} />
+    <Route path="/cart" element={<Cart />} />
 
 
 
