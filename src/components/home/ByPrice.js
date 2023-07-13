@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, Row, Col, Button, Pagination } from "react-bootstrap";
+import {  Button, Pagination } from "react-bootstrap";
 import moment from "moment/moment";
 import { useLocation } from "react-router-dom";
 import { BsCartFill } from 'react-icons/bs';
+import { addItem } from "../../api/CartApi";
+
 
 
 
@@ -12,10 +14,17 @@ function ByPrice() {
   
   const location = useLocation();
   const selectedOption = location.state;
+  const[items, setItems] = useState([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+  const [redirect, setRedirect] = useState(false);
 
- const[items, setItems] = useState([])
- const [currentPage, setCurrentPage] = useState(1);
- const itemsPerPage = 6; // Number of items to display per page
+  const shouldRedirect = (redirect) => {
+    if (redirect) {
+      return (window.location.href = "/cart");
+    }
+  };
+
 
 
  useEffect(() => {
@@ -61,29 +70,51 @@ function ByPrice() {
   
     return (
       <>
-        <Row>
+ <div className="row" style={{marginBottom: "4rem"}}>       
           {currentItems.map((item) => (
-            <Col key={item._id} sm={6} md={4} lg={3} className="my-3">
-              <Card>
-                <Card.Img variant="top" src={item.bookImage} alt={item.bookTitle} />
-                <Card.Body>
-                  <Card.Title>{item.bookTitle}</Card.Title>
-                  <Card.Text>
-                    <small className="text-muted">By {item.bookAuthor}</small>
-                  </Card.Text>
-                  <Card.Text>
-                    <small className="text-muted">
-                      Release Date: {moment(item.bookReleaseDate).format("MMM Do YYYY")}
-                    </small>
-                  </Card.Text>
-                  <Button variant="primary" className="mt-2">
-                    <BsCartFill /> Buy
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
+ 
+ <div className="col-md-4 mb-4 my-3" key={item._id}  >
+            <div className="card h-100 shadow-sm" style={{marginBottom: "3rem"}}>
+              <img
+                src={item.bookImage}
+                alt={item.bookTitle}
+                className="card-img-top"
+              />
+              <div className="card-body">
+                <a
+                  href={`/book_single/${item._id}`}
+                  className="card-title"
+                  style={{ textDecoration: "none" }}
+                >
+                  {item.bookTitle}
+                </a>
+                <p className="card-title">{item.bookAuthor}</p>
+                <p className="card-text">MK {item.bookPrice}</p>
+                <p className="card-text">released on: {moment(item.bookReleaseDate).format("MMM Do YYYY")} </p>
+              </div>
+              <div className="card-footer">
+                <Button
+                 variant="primary" className="mt-2"
+
+                 onClick={() => {
+                  addItem(item, () => {
+                    setRedirect(true);
+                  });
+                }}
+
+
+                >
+                  <BsCartFill />
+                  Buy Now
+                </Button>
+              </div>
+            </div>
+          </div>
+
           ))}
-        </Row>
+
+          </div>
+        
         <Pagination>
           <Pagination.Prev
             onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
@@ -110,7 +141,8 @@ function ByPrice() {
 
 
   return(<>
-  <h1 className="text-center" style={{marginBottom: "2rem"}}> these are {selectedOption} priced books..  </h1>
+  {shouldRedirect(redirect)}
+  <h1 className="text-center" style={{marginBottom: "2rem", fontFamily: "Times New Roman", fontStyle: "oblique"}}> these are {selectedOption} priced books..  </h1>
 {
     leggoo()
 }  

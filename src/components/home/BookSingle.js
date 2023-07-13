@@ -3,12 +3,22 @@ import { useState, useEffect } from 'react';
 import { FaShoppingCart, FaPlus } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import FilterBoxes from './FilterBoxes';
+import { addItem } from "../../api/CartApi";
+
 
 function BookSingle() {
   const { id } = useParams();
   const navigate = useNavigate()
   const [book, setBook] = useState({});
   const[relatedBooks, setRelatedBooks] = useState([])
+  const [redirect, setRedirect] = useState(false);
+
+  const shouldRedirect = (redirect) => {
+    if (redirect) {
+      return (window.location.href = "/cart");
+    }
+  };
+
   
 
 
@@ -47,6 +57,7 @@ const getAllBooks = async() => {
   return (
     <>
        <div className="container">
+       {shouldRedirect(redirect)}
        <div style={{marginBottom: "2rem", marginTop: "1rem"}}>
      <FilterBoxes />
 
@@ -65,7 +76,13 @@ const getAllBooks = async() => {
                 <p className="card-text text-primary" onClick={handleRedirect}>{book.bookAuthor}</p>
                 <p className="card-text">MK {book.bookPrice}</p>
                 
-                <button className="btn btn-primary">
+                <button className="btn btn-primary"  onClick={() => {
+                    addItem(book, () => {
+                      setRedirect(true);
+                    });
+                  }}
+                  
+                  >
                   <FaShoppingCart className="mr-1" />
                   Add to Cart
                 </button>

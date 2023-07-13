@@ -3,14 +3,25 @@ import { FaPlus, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import FilterBoxes from "./FilterBoxes";
+import { addItem } from "../../api/CartApi";
+
 
 function AuthorBooks() {
   const location = useLocation();
   const authorName = location.state;
-
   const [books, setBooks] = useState([]);
   const [booksByAuthor, setBooksByAuthor] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [redirect, setRedirect] = useState(false);
+
+  const shouldRedirect = (redirect) => {
+    if (redirect) {
+      return (window.location.href = "/cart");
+    }
+  };
+
+
+
 
   useEffect(() => {
     const getBooks = async () => {
@@ -51,6 +62,7 @@ function AuthorBooks() {
 
   return (
     <>
+    {shouldRedirect(redirect)}
       <h1 style={{ fontFamily: "monospace", fontStyle: "italic", textAlign: "center" }}>
         Books by {authorName}
       </h1>
@@ -76,7 +88,13 @@ function AuthorBooks() {
                         {book.bookTitle}
                       </a>
                       <p className="card-text">{book.bookPrice}</p>
-                      <button className="btn btn-primary">
+                      <button className="btn btn-primary" onClick={() => {
+                    addItem(book, () => {
+                      setRedirect(true);
+                    });
+                  }}
+                  
+                  >
                         <FaPlus className="mr-1" />
                         Add to Cart
                       </button>

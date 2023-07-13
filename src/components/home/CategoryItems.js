@@ -3,12 +3,23 @@ import { useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import axios from "axios";
 import FilterBoxes from "./FilterBoxes";
+import { addItem } from "../../api/CartApi";
+
 
 function CategoryItems() {
   const { id } = useParams();
   const [results, setResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Adjust the number of items per page as needed
+  const itemsPerPage = 8; 
+  const [redirect, setRedirect] = useState(false);
+
+  const shouldRedirect = (redirect) => {
+    if (redirect) {
+      return (window.location.href = "/cart");
+    }
+  };
+
+
 
   useEffect(() => {
     const getBooksByGenre = async () => {
@@ -32,6 +43,7 @@ function CategoryItems() {
 
     return (
       <>
+       {shouldRedirect(redirect)}
        <div style={{marginBottom: "2rem", marginTop: "1rem"}}>
      <FilterBoxes />
 
@@ -51,7 +63,13 @@ function CategoryItems() {
             <a href={`/book_single/${result._id}`} className="card-title">{result.bookTitle}</a>
             <p className="card-title">by {result.bookAuthor}</p>
             <p className="card-text">{result.bookPrice}</p>
-            <button className="btn btn-primary btn-sm mt-auto">
+            <button className="btn btn-primary btn-sm mt-auto"  onClick={() => {
+                    addItem(result, () => {
+                      setRedirect(true);
+                    });
+                  }}
+                  
+                  >
               <FaPlus className="mr-1" />
               Add to Cart
             </button>
