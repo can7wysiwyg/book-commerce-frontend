@@ -28,6 +28,7 @@ import NewBookCover from "./components/admin/NewBookCover";
 import NewBookDescription from "./components/admin/NewBookDescription";
 import NewBookRelease from "./components/admin/NewBookRelease";
 import Cart from "./components/home/Cart";
+import ShowOrders from "./components/admin/ShowOrders";
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
     <Route path="/update_description/:id" element={<NewBookDescription />} />
     <Route path="/update_release/:id" element={<NewBookRelease />} />
     <Route path="/cart" element={<Cart />} />
+    <Route path="/show_orders" element={<ShowOrders />} />
 
 
 

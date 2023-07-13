@@ -73,6 +73,18 @@ function Management() {
 
         </motion.div>
 
+        <motion.div className="col-md-4 mb-4" variants={adminPanelVariants}>
+          <motion.div className="card" whileHover={{ scale: 1.05 }}>
+            <div className="card-body">
+              <a href='/show_orders' className="card-title">Showing Orders</a>
+              <p className="card-text">See Orders And Manage Them</p>
+            </div>
+          </motion.div>
+
+
+        </motion.div>
+
+
 
 
 
