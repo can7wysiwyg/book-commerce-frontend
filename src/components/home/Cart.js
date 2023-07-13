@@ -10,7 +10,8 @@ function Cart() {
     email: "",
     fullname: "",
     phonenumber: "",
-    address: ""
+    address: "",
+    amount: ""
   });
 
   useEffect(() => {
@@ -68,7 +69,7 @@ function Cart() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const cartData = items.map(item => ({
-      ...item,
+      item: item.item,
       quantity: item.quantity,
     }));
     const orderData = {
@@ -76,9 +77,10 @@ function Cart() {
       email: values.email,
       phonenumber: values.phonenumber,
       address: values.address,
+      amount: calculateTotalPrice(), // Add the total price to the orderData object
       cartContents: cartData,
     };
-  
+
     try {
       const response = await fetch('/cartt/make_order', {
         method: 'POST',
@@ -87,9 +89,10 @@ function Cart() {
         },
         body: JSON.stringify(orderData),
       });
-  
+    
+
       if (response.ok) {
-        console.log('Order placed successfully');
+        alert('Order placed successfully');
         setShowModal(false);
       } else {
         console.log('Error placing the order');
@@ -98,9 +101,11 @@ function Cart() {
       console.log('Error placing the order', error);
     }
   };
-  
 
-  
+  const calculateTotalPrice = () => {
+    return items.reduce((total, item) => total + item.bookPrice * item.quantity, 0);
+  };
+
   if (items.length === 0) {
     return (
       <div style={{ margin: "2rem", fontFamily: "Times New Roman", fontStyle: "italic", textAlign: "center", color: "red" }}>
@@ -151,6 +156,10 @@ function Cart() {
         <Button className="btn btn-primary" onClick={handleCheckout}>
           Checkout
         </Button>
+      </div>
+
+      <div style={{ textAlign: "center", margin: "2rem", fontFamily: "sans-serif", fontStyle: "revert-layer" }}>
+        <h3>Total Price: MK {calculateTotalPrice()}</h3>
       </div>
 
       <Modal show={showModal} onHide={handleCloseModal}>

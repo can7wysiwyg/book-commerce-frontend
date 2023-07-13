@@ -58,7 +58,7 @@ function NewBooks() {
                 <p className="card-text">MK {book.bookPrice}</p>
               </div>
               <div className="card-footer">
-                <button className="btn btn-primary">Buy Now</button>
+                <button className="btn btn-primary">Place An Order</button>
               </div>
             </div>
           </div>
