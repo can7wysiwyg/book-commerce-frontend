@@ -1,20 +1,26 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import { GlobalState } from "../../GlobalState";
 
 function ShowOrders() {
-   const state = useContext(GlobalState)
-   const token = state.token
+  const state = useContext(GlobalState);
+  const token = state.token;
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
+  const navigate = useNavigate();
+
+  const handleChange = (itemId, itemName) => {
+    navigate(`/cart_show/${itemId}`, { state: { itemName } });
+  };
 
   useEffect(() => {
     const getCustomers = async () => {
       const res = await axios.get("/cartt/show_carts", {
         headers: {
-            Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       });
       setItems(res.data.carts);
@@ -46,8 +52,13 @@ function ShowOrders() {
         <h1>List of Carts</h1>
         <ul className="list-group">
           {currentItems.map((item, index) => (
-            <li key={item._id} className="list-group-item">
-              <a href={`/cart_show/${item._id}`}>{item.fullname}</a>
+            <li
+              key={item._id}
+              className="list-group-item text-primary"
+              onClick={() => handleChange(item._id, item.fullname)}
+              style={{ cursor: "pointer" }}
+            >
+              {item.fullname}
             </li>
           ))}
         </ul>
