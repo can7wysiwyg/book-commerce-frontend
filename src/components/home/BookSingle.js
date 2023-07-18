@@ -25,7 +25,7 @@ function BookSingle() {
 
   useEffect(() => {
     const getBook = async () => {
-      const res = await axios.get(`/book/get_single/${id}`);
+      const res = await axios.get(`https://bookcommerce.onrender.com/book/get_single/${id}`);
       setBook(res.data.books);
     };
 
@@ -34,7 +34,7 @@ function BookSingle() {
 
 const getAllBooks = async() => {
 
-  const res = await axios.get('/book/show')
+  const res = await axios.get('https://bookcommerce.onrender.com/book/show')
 
   setRelatedBooks(res.data.results)
 

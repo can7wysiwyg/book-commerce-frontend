@@ -7,9 +7,6 @@ import { BsCartFill } from 'react-icons/bs';
 import { addItem } from "../../api/CartApi";
 
 
-
-
-
 function ByPrice() {
   
   const location = useLocation();
@@ -31,7 +28,7 @@ function ByPrice() {
 
     const getBooks = async() => {
 
-        const res = await axios.get('/book/show_all')
+        const res = await axios.get('https://bookcommerce.onrender.com/book/show_all')
   
         setItems(res.data.data)
   

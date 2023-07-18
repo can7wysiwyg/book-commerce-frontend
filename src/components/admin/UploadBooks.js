@@ -22,7 +22,7 @@ function UploadBooks() {
   useEffect(() => {
 
     const getCats = async() => {
-        const res = await axios.get("/genre/show_all")
+        const res = await axios.get("https://bookcommerce.onrender.com/genre/show_all")
 
         setCategories(res.data.data)
 

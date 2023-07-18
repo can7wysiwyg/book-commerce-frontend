@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Button, Pagination } from "react-bootstrap";
@@ -33,7 +32,7 @@ function SearchBooks() {
         setIsLoading(true);
         setError(null);
 
-        const response = await axios.get("/book/show_all");
+        const response = await axios.get("https://bookcommerce.onrender.com/book/show_all");
         const bookData = response.data.data;
 
         const filteredResults = bookData.filter((book) => {

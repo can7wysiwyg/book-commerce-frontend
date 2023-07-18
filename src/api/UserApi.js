@@ -15,7 +15,7 @@ function UserApi() {
         if(token) {
          
             const getUser = async() => {
-                const res = await axios.get(`/admin/user`, {
+                const res = await axios.get(`https://bookcommerce.onrender.com/admin/user`, {
                     headers: {Authorization: `Bearer ${token}`}
                 })
                 setIsLogged(true)

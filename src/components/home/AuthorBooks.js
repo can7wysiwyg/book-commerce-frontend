@@ -25,7 +25,7 @@ function AuthorBooks() {
 
   useEffect(() => {
     const getBooks = async () => {
-      const res = await axios.get("/book/show_all");
+      const res = await axios.get("https://bookcommerce.onrender.com/book/show_all");
       setBooks(res.data.data);
     };
 
@@ -34,7 +34,7 @@ function AuthorBooks() {
 
   useEffect(() => {
     const getAuthorBooks = async () => {
-      const res = await axios.get(`/newbook/show_authors_books/bk?bookAuthor=${authorName}`);
+      const res = await axios.get(`https://bookcommerce.onrender.com/newbook/show_authors_books/bk?bookAuthor=${authorName}`);
       const allBooksByAuthor = res.data.data;
       const sortedBooksByAuthor = allBooksByAuthor.sort((a, b) => new Date(b.bookReleaseDate) - new Date(a.bookReleaseDate));
       const recentBooksByAuthor = sortedBooksByAuthor.slice(0, 4); // Get the first four items

@@ -82,7 +82,7 @@ function Cart() {
     };
 
     try {
-      const response = await fetch('/cartt/make_order', {
+      const response = await fetch('https://bookcommerce.onrender.com/cartt/make_order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -23,7 +23,7 @@ function FilterBoxes() {
 
     const getBooks = async() => {
 
-      const res = await axios.get('/book/show_all')
+      const res = await axios.get('https://bookcommerce.onrender.com/book/show_all')
 
       setBooks(res.data.data)
 
@@ -61,7 +61,7 @@ function FilterBoxes() {
     const getCategories = async() => {
   
       const getCats = async() => {
-        const res = await axios.get("/genre/show_all")
+        const res = await axios.get("https://bookcommerce.onrender.com/genre/show_all")
   
         setCategories(res.data.data)
   

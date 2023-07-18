@@ -19,7 +19,7 @@ const NewBookDescription = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.put(`/book/update_info/${id}`, { bookDescription }, {
+    await axios.put(`https://bookcommerce.onrender.com/book/update_info/${id}`, { bookDescription }, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

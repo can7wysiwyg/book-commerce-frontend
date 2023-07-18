@@ -18,7 +18,7 @@ function ShowOrders() {
 
   useEffect(() => {
     const getCustomers = async () => {
-      const res = await axios.get("/cartt/show_carts", {
+      const res = await axios.get("https://bookcommerce.onrender.com/cartt/show_carts", {
         headers: {
           Authorization: `Bearer ${token}`
         }

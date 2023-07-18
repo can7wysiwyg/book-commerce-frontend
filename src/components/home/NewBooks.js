@@ -10,7 +10,7 @@ function NewBooks() {
 
   useEffect(() => {
     const getBooks = async () => {
-      const res = await axios.get("/newbook/show_all");
+      const res = await axios.get("https://bookcommerce.onrender.com/newbook/show_all");
       setBooks(res.data.data);
     };
 

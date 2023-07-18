@@ -10,7 +10,7 @@ const ManageNewBooks = () => {
 
   useEffect(() => {
     const getBooks = async () => {
-      const res = await axios.get("/newbook/show_all");
+      const res = await axios.get("https://bookcommerce.onrender.com/newbook/show_all");
       setBooks(res.data.data);
     };
 
@@ -113,7 +113,7 @@ const Buttons = ({book}) => {
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(`/newbook/delete_single/${book._id}`, {
+      const res = await axios.delete(`https://bookcommerce.onrender.com/newbook/delete_single/${book._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -18,7 +18,7 @@ const BookPrice = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-   const res = await axios.put(`/book/update_info/${id}`, { bookPrice }, {
+   const res = await axios.put(`https://bookcommerce.onrender.com/book/update_info/${id}`, { bookPrice }, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

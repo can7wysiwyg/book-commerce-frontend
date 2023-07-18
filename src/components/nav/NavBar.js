@@ -22,7 +22,7 @@ const NavBar = () => {
     if (isLogged !== true) {
       return (
         <Link className="navbar-brand" to="/">
-          Your Logo
+          Books Market
         </Link>
       );
     } else {

@@ -22,7 +22,7 @@ export const Home = () => {
 
     const getCards = async() => {
 
-      const res = await axios.get('/book/popular')
+      const res = await axios.get('https://bookcommerce.onrender.com/book/popular')
       setCardsData(res.data.results)
 
     }

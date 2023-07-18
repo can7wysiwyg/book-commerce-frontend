@@ -18,7 +18,7 @@ const BookAuthor = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-   const res = await axios.put(`/book/update_info/${id}`, { bookAuthor }, {
+   const res = await axios.put(`https://bookcommerce.onrender.com/book/update_info/${id}`, { bookAuthor }, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

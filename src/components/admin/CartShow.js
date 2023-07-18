@@ -12,7 +12,7 @@ function CartShow() {
    useEffect(() => {
 const getCartItems = async() => {
 
-    const res = await axios.get(`/cartt/show_cus_orders/fn?fullname=${location.state.itemName}`, {
+    const res = await axios.get(`https://bookcommerce.onrender.com/cartt/show_cus_orders/fn?fullname=${location.state.itemName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

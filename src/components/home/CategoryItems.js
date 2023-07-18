@@ -24,7 +24,7 @@ function CategoryItems() {
   useEffect(() => {
     const getBooksByGenre = async () => {
       try {
-        const res = await axios.get("/book/show_all");
+        const res = await axios.get("https://bookcommerce.onrender.com/book/show_all");
         setResults(res.data.data);
       } catch (error) {
         console.error(error);

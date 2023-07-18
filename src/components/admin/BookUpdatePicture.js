@@ -18,7 +18,7 @@ function BookUpdatePicture() {
         let formData = new FormData();
         formData.append("bookImage", bookImage);
 
-        await axios.put(`/book/update_image/${id}`, formData, {
+        await axios.put(`https://bookcommerce.onrender.com/book/update_image/${id}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

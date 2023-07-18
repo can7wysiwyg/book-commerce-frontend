@@ -16,7 +16,7 @@ function Categories() {
   useEffect(() => {
 
     const getCats = async() => {
-        const res = await axios.get("/genre/show_all")
+        const res = await axios.get("https://bookcommerce.onrender.com/genre/show_all")
 
         setCategories(res.data.data)
 
@@ -34,7 +34,7 @@ function Categories() {
 
   const handleAddCategory = async(e) => {
     e.preventDefault();
-    const res = await axios.post('/genre/create', {name}, {
+    const res = await axios.post('https://bookcommerce.onrender.com/genre/create', {name}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
