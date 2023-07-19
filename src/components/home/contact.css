@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+.kontainer{
+    min-height:100vh;
+    background-color:#BCBBCA;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: 'Poppins', sans-serif;
+}
+.card-box{
+    height:430px;
+    width:340px;
+    background-color:white;
+    border-radius:20px;
+}
+.top-div-top{
+    display:flex;
+    justify-content:space-between;
+    padding:20px;
+}
+.top-div-yop .h2{
+    margin-top:10px;
+    margin-left:15px;
+   
+}
+.top-div-top .i{
+    font-size:20px;
+    color:#ccc;
+}
+input[type='text']{
+    width:100%;
+    box-sizing:border-box;
+    height:40px;
+    border:none;
+    outline:0;
+    border-bottom:1px solid #ccc;
+    padding:0px 35px;
+    font-size:15px;
+}
+.input-text{
+    position:relative;
+    margin-top:10px;
+}
+.input-text span{
+    position:absolute;
+    top:9px;
+    left:35px;
+    transition:all 0.5s;
+}
+.input-text input:focus~span,.input-text input:valid~span{
+    font-size:12px;
+    top:-5px;
+    position:absolute;
+    color:purple !important;
+    font-weight:900;
+}
+.detailsz :nth-child(5) input[type='text']{
+    border:none;
+}
+.last{
+    display:flex;
+    justify-content:right;
+    align-items:center;
+    padding-right:20px;
+    margin-top:50px;
+}
+.last .butt{
+    margin-right:15px;
+    color:blue;
+    background-color:white;
+    border:none;
+}
+.last span{
+    height:30px;
+    width:30px;
+    background-color:blue;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.last .fa-envelope-o{
+    color:#fff;
+    font-size:14px;
+}
+
+
+
+
+
+
+

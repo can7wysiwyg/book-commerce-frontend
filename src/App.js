@@ -30,6 +30,7 @@ import NewBookRelease from "./components/admin/NewBookRelease";
 import Cart from "./components/home/Cart";
 import ShowOrders from "./components/admin/ShowOrders";
 import CartShow from "./components/admin/CartShow";
+import ContactUs from "./components/home/ContactUs";
 
 
 function App() {
@@ -71,6 +72,8 @@ function App() {
     <Route path="/cart" element={<Cart />} />
     <Route path="/show_orders" element={<ShowOrders />} />
     <Route path="/cart_show/:id" element={<CartShow />} />
+    <Route path="/contact" element={<ContactUs />} />
+
 
 
 

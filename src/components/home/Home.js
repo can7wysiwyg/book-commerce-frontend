@@ -68,33 +68,28 @@ export const Home = () => {
     <>
       {shouldRedirect(redirect)}
       <div className="homepage">
-        <Carousel indicators={true}>
-          <Carousel.Item>
-            <div className="slide-container">
-              <img className="d-block w-100" src={Img1} alt="Slide 1" />
-              <div className="slide-content">
-            
-              </div>
-            </div>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="slide-container">
-              <img className="d-block w-100" src={Img2} alt="Slide 2" />
-              <div className="slide-content">
-                
-              </div>
-            </div>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="slide-container">
-              <img className="d-block w-100" src={Img3} alt="Slide 3" />
-              <div className="slide-content">
-                
-              </div>
-            </div>
-          </Carousel.Item>
-        </Carousel>
+      <Carousel indicators={false}>
+  <Carousel.Item>
+    <div className="slide-container">
+      <img className="d-block w-100" src={Img1} alt="Slide 1" />
+      <div className="slide-content"></div>
+    </div>
+  </Carousel.Item>
+  <Carousel.Item>
+    <div className="slide-container">
+      <img className="d-block w-100" src={Img2} alt="Slide 2" />
+      <div className="slide-content"></div>
+    </div>
+  </Carousel.Item>
+  <Carousel.Item>
+    <div className="slide-container">
+      <img className="d-block w-100" src={Img3} alt="Slide 3" />
+      <div className="slide-content"></div>
+    </div>
+  </Carousel.Item>
+</Carousel>
 
+        
         <Container className="input-container mt-4 mb-4">
           <FilterBoxes />
         </Container>
