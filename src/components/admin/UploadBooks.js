@@ -63,7 +63,7 @@ function UploadBooks() {
     formData.append('bookGenre', values.bookGenre)
     formData.append('bookReleaseDate', values.bookReleaseDate)
 
-    const res = await axios.post("/book/create", formData, {
+    const res = await axios.post("https://bookcommerce.onrender.com/book/create", formData, {
       headers: {
         Authorization: `Bearer ${token}`
       }

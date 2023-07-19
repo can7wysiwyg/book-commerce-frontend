@@ -54,6 +54,11 @@ function Books() {
                 src={book.bookImage}
                 alt={book.bookTitle}
                 className="card-img-top"
+                style={{
+                  width: "100%",
+                  maxHeight: "30vh",
+                  objectFit: "contain"
+                }}
               />
               <div className="card-body">
                 <a

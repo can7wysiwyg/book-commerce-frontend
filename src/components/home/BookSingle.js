@@ -67,7 +67,7 @@ const getAllBooks = async() => {
         <div className="row justify-content-center">
           <div className="col-md-8">
             <div className="card mb-4">
-              <img src={book.bookImage} alt={book.bookTitle} className="card-img-top" />
+              <img src={book.bookImage} alt={book.bookTitle} style={{width: "100%", maxHeight: "30vh", objectFit: "contain"}} />
               <div className="card-body">
                 <h5 className="card-title">{book.bookTitle}</h5>
                 <p className="card-text" style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
