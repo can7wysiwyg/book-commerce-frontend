@@ -34,11 +34,11 @@ import CartShow from "./components/admin/CartShow";
 
 function App() {
   return (
-    <div className="container">
+    <div >
       <Router>
 
       <NavBar />
-      <main className="py-3">  
+      <main className="container py-3">  
      <Routes>
     <Route path="/" element={<Home />} />
 
