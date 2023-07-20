@@ -14,7 +14,7 @@ function NewBookSingle() {
 
   useEffect(() => {
     const getBook = async () => {
-      const res = await axios.get(`/newbook/show_single/${id}`);
+      const res = await axios.get(`https://bookcommerce.onrender.com/newbook/show_single/${id}`);
       setBook(res.data.data);
     };
 
@@ -23,7 +23,7 @@ function NewBookSingle() {
 
   useEffect(() => {
     const getAuthorBooks = async () => {
-      const res = await axios.get(`/book/show_authors_books/bk?bookAuthor=${book.bookAuthor}`);
+      const res = await axios.get(`https://bookcommerce.onrender.com/book/show_authors_books/bk?bookAuthor=${book.bookAuthor}`);
       const allBooksByAuthor = res.data.data;
       const sortedBooksByAuthor = allBooksByAuthor.sort((a, b) => new Date(b.bookReleaseDate) - new Date(a.bookReleaseDate));
       const recentBooksByAuthor = sortedBooksByAuthor.slice(0, 4); // Get the first four items
@@ -67,7 +67,7 @@ function NewBookSingle() {
       <div className="card-body">
         <a href={`/book_single/${book._id}`} className="card-title">{book.bookTitle}</a>
         <p className="card-text">{book.bookPrice}</p>
-        <button className="btn btn-primary">
+        <button className="btn btn-primary" disabled>
           <FaPlus className="mr-1" />
           Add to Cart
         </button>
