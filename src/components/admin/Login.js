@@ -40,7 +40,7 @@ const [values, setValues] = useState({email: "", password: ""})
           
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>enter your username</Form.Label>
+              <Form.Label>email</Form.Label>
               <Form.Control
                 type="name"
                 name="email"
@@ -51,7 +51,7 @@ const [values, setValues] = useState({email: "", password: ""})
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>enter your password</Form.Label>
+              <Form.Label>password</Form.Label>
               <Form.Control
                 type="password"
                 name="password"

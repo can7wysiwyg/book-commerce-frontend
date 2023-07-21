@@ -39,6 +39,13 @@ function Books() {
     setCurrentPage(pageNumber);
   };
 
+  if(books.length === 0) {
+    return(<div style={{textAlign: "center", fontFamily: "fantasy", fontStyle: "italic"}}>
+    <h1> please, wait as books load... patience is a virtual.. remember that.🙂🙂🙂</h1>
+    
+    </div>)
+  }
+
   return (
     <div className="container">
       {shouldRedirect(redirect)}

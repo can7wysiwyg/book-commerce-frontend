@@ -67,7 +67,7 @@ function NewBookSingle() {
       <div className="card-body">
         <a href={`/book_single/${book._id}`} className="card-title">{book.bookTitle}</a>
         <p className="card-text">{book.bookPrice}</p>
-        <button className="btn btn-primary" disabled>
+        <button className="btn btn-primary">
           <FaPlus className="mr-1" />
           Add to Cart
         </button>

@@ -22,7 +22,7 @@ const ManageBooks = () => {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-  // Filter books based on the search query
+  
   const filteredBooks = books.filter((book) =>
     book.bookTitle.toLowerCase().includes(searchQuery.toLowerCase())
   );

@@ -17,7 +17,7 @@ const Footer = () => {
           <FontAwesomeIcon icon={faInstagram} />
         </a>
       </div>
-      <p>&copy; 2023 My Website. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} Book Market. All rights reserved.</p>
     </footer>
   );
 };
